@@ -1,66 +1,86 @@
-# GoshtFlix
+# Workout - Gerenciador de Treinos de Musculação
 
 ### Contexto
 
-**O objetivo deste desafio é desenvolver um aplicativo Android simples, porém funcional, para exibir informações sobre filmes utilizando a API gratuita The Movie DB.**
+*Aplicativo Android para gerenciamento de treinos de musculação com CRUD completo para as entidades Treino e Exercício, integrando autenticação Firebase, banco de dados Firestore e armazenamento de imagens no Firebase Storage.
 
-O App foi desenvolvido seguindo as Stacks atuais do mercado e também as utilizadas dentro da empresa que forneceu o desafio.
+Este projeto foi desenvolvido como desafio técnico para demonstrar conhecimentos em arquitetura Android moderna, Firebase e boas práticas de desenvolvimento.
 
-O aplicativo permite ao usuário que visualize uma lista de filmes, procure e filtre filmes clicando nele (um Search e um filtro de categorai), consulte detalhes de um filme selecionado(um MovieDetal) e também que salve filmes como favoritos para consulta posterior(onde o usuário pode implementar filmes na listagem de favoritos em uma chamada da API para (ADD Favorites) e também possa remover da sua listagem de favoritos na hora que quiser).
-
-Como a API já permitia adicionar filmes a listagem de favoritos, buscar esses filmes e remover, não foi necessária a implementação de DataBase.
-
-### Stack (Tecnologias utilizadas no APP)
-
-O aplicativo foi desenvolvido utilizando as seguintes tecnologias:
-
-**Kotlin** → Linguagem principal para o desenvolvimento do Android.
-
-**Corrotines e Flow** → Para gerenciar chamadas assíncronas de forma eficiente.
-
-**Retrofit** → Para consumo e tratamento das requisições (HTTP).
-
-**LiveData** → Para observação de dados e atualização da UI.
-
-**XML** → Para construção da interface do usuário.
-
-**Koin** → Para injeção de dependências.
-
-**Coil** → Para carregamento eficiente de imagens.
-
-**Paging 3** → Para facilitar a paginação.
 
 ### Requisitos do Aplicativo
 
 O aplicativo contém as seguintes funcionalidades:
 
-**Listagem de Filmes**
+**Autenticação de usuário via Firebase Authentication (e-mail e senha).**
 
-**Consume a API do The Movie DB e exibir os filmes.**
+**Cadastro, listagem, edição e exclusão de Treinos.**
 
-**Implementar paginação para carregar mais filmes conforme o usuário rola a tela.**
+**Cadastro, listagem, edição e exclusão de Exercícios vinculados a cada treino (relação 1:N).**
 
-**Detalhes do Filme**
+**Upload e exibição de imagens para os exercícios, armazenadas no Firebase Storage.**
 
-**Exibir título, sinopse, data de lançamento e imagem do filme ao selecioná-lo.**
+**Interface baseada em Material Design com foco em usabilidade.**
 
-**Filtragem**
+**Utilização da arquitetura MVVM com LiveData e Coroutines para reatividade e operações assíncronas.**
 
-**Pesquisa**
 
-**Permitir ao usuário pesquisar filmes específicos.**
+### Entidades
 
-**Implementar filtros para refinar os resultados exibidos.**
+**Treino**
 
-### Bônus
+nome: String
 
-**Implementações adicionais:**
+descricao: String
 
-**Exibição de Estados de Carregamento (Loading)** → Mostrar um indicador de carregamento durante a busca de dados.
+data: Timestamp
 
-**Tratamento de Erros** → Exibir mensagens corretas para erros de conexão, requisição inválida.
+**Exercício**
 
-**Aprimoramento da Experiência do Usuário** → Criada uma interface intuitiva e agradável, seguindo princípios de design moderno e interação com o usuário.
+nome: String
 
-**Favoritos** → Busca, salvamento e exclusão de cada item dentro da própria chamada da API do TMDB.
+imagemUrl: String (URL da imagem no Firebase Storage)
+
+observacoes: String
+
+### Tecnologias Utilizadas
+
+**Kotlin**
+
+**Android Jetpack (ViewModel, LiveData)**
+
+**Firebase Authentication**
+
+**Firebase Firestore**
+
+**Firebase Storage**
+
+**Coroutines**
+
+**Material Design Components**
+
+RecyclerView
+
+**Como executar**
+
+Clone este repositório.
+
+Configure seu projeto Firebase:
+
+Crie um projeto no Firebase Console.
+
+Ative Authentication (Email/Password).
+
+Configure Firestore e Storage.
+
+Baixe o arquivo google-services.json e adicione na pasta app/.
+
+Abra o projeto no Android Studio.
+
+Aguarde a sincronização Gradle.
+
+Execute o app em um dispositivo ou emulador.
+
+Realize cadastro/login para acessar as funcionalidades.
+
+Crie treinos e exercícios, faça upload de imagens e gerencie seu plano de treino.
 

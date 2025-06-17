@@ -60,7 +60,7 @@ observacoes: String
 
 RecyclerView
 
-**Como executar**
+### Como executar
 
 Clone este repositório.
 

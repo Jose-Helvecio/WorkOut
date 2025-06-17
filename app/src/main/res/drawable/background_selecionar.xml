@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fundo sólido preenchido -->
+    <solid android:color="@color/green" /> <!-- Cor sólida preenchida -->
+
+    <!-- Borda (opcional: pode remover se quiser sem contorno) -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/green" /> <!-- Tom mais escuro da mesma paleta -->
+
+    <!-- Cantos arredondados -->
+    <corners android:radius="12dp" />
+
+    <!-- Padding interno (opcional) -->
+    <padding
+        android:bottom="12dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:top="12dp" />
+</shape>

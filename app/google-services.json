@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "708219858852",
+    "project_id": "goshtflixapp",
+    "storage_bucket": "goshtflixapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708219858852:android:03c0ec4fa6a986109e1b31",
+        "android_client_info": {
+          "package_name": "com.example.goshtflix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0DwQL4edMR3OKvoa8Irc_u5cuK4BVtXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

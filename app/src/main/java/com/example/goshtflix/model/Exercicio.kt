@@ -1,13 +1,19 @@
 package com.example.goshtflix.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.util.UUID
 
 @Parcelize
+@Entity(tableName = "exercicios")
+
 data class Exercicio(
-    var id: String = "",
+    @PrimaryKey
+    var id: String = UUID.randomUUID().toString(),
     var treinoId: String = "",
     var nome: String = "",
-    var imagemUrl: String = "",
+    var imagemLocalUri: String = "",
     var observacoes: String = ""
 ) : Parcelable

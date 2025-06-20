@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
     id ("kotlin-parcelize")
+    id ("kotlin-kapt")
 //    id("com.google.devtools.ksp")
 
 }
@@ -48,6 +49,19 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.android)
     val room_version = "2.6.1"
 
+    implementation ("androidx.activity:activity-ktx:1.9.0")
+    implementation ("androidx.fragment:fragment-ktx:1.8.0") // Se usar fragments
+
+    // ViewModel e LiveData
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
+
+    // Room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+
 
     implementation ("androidx.room:room-runtime:2.6.1")
 //    ksp("androidx.room:room-compiler:$room_version")
@@ -79,7 +93,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation ("com.google.firebase:firebase-auth:22.3.1")
     implementation ("com.google.firebase:firebase-bom:33.15.0")
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("io.coil-kt:coil:2.6.0")
 
 
     testImplementation(libs.junit)

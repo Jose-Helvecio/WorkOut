@@ -12,9 +12,8 @@
         android:id="@+id/constraintTitle"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16sp"
-        app:layout_constraintBottom_toTopOf="@id/button_submit"
+        android:layout_height="wrap_content"
+        android:padding="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +25,9 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/logo"
+            android:layout_marginStart="15dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/et_frase_fantasminha"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -51,72 +52,94 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/et_login"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintDados"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/background_barra_pesquisa"
-        android:hint="Login:"
-        android:padding="16dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_barra_pesquisa"
-        android:hint="Digite sua senha:"
-        android:padding="16dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginBottom="20dp"
+        android:padding="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_cadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_login"/>
+        app:layout_constraintTop_toBottomOf="@+id/constraintTitle">
 
+        <EditText
+            android:id="@+id/et_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/background_barra_pesquisa"
+            android:hint="Login:"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_barra_pesquisa"
+                android:hint="Digite sua senha:"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_submit"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp"
+        android:text="Login"
+        android:textColor="@color/green"
+        app:backgroundTint="@color/white"
+        app:strokeColor="@color/green"
+        app:strokeWidth="2dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintDados" />
     <TextView
         android:id="@+id/tv_cadastro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:text="Não tenho conta, CADASTRAR"
         android:padding="16dp"
-        android:textColor="@color/black"
-        android:textStyle="italic|bold"
+        android:text="Não tenho conta, CADASTRAR"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
         android:textSize="14sp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_password"/>
-
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_submit"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="8dp"
-        android:layout_marginBottom="40dp"
-        android:text="Login"
-        android:textColor="@color/green"
-        android:textSize="16sp"
+        android:textStyle="italic|bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_submit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

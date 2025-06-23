@@ -45,7 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "goshtflix_database"
                 )
-                    .addMigrations(MIGRATION_1_2) // <- Adicionado aqui
+                    .addMigrations(MIGRATION_1_2)
                     .build()
 
                 INSTANCE = instance

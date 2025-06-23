@@ -70,8 +70,6 @@
             app:layout_constraintEnd_toStartOf="@+id/btnDeletar"
             app:layout_constraintStart_toEndOf="@+id/btnEditar" />
 
-
-
         <ImageButton
             android:id="@+id/btnDeletar"
             android:layout_width="48dp"

@@ -35,7 +35,8 @@ class ExercicioAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExercicioViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exercicio, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_exercicio, parent, false)
         return ExercicioViewHolder(view)
     }
 
@@ -52,7 +53,8 @@ class ExercicioAdapter(
         private val ivImagem: ImageView = itemView.findViewById(R.id.ivImagem)
         private val btnEditar: ImageView = itemView.findViewById(R.id.btnEditar)
         private val btnExcluir: ImageView = itemView.findViewById(R.id.btnDeletar)
-        private val btnRegistrarExecucao: MaterialButton = itemView.findViewById(R.id.btnRegistrarExecucao)
+        private val btnRegistrarExecucao: MaterialButton =
+            itemView.findViewById(R.id.btnRegistrarExecucao)
 
 
         fun bind(exercicio: Exercicio) {

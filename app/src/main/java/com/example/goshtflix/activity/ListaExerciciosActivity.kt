@@ -34,8 +34,10 @@ class ListaExerciciosActivity : AppCompatActivity() {
         adapter = ExercicioAdapter(
             lista = mutableListOf(),
             onEditar = { abrirCadastro(it) },
-            onExcluir = { excluir(it) }
+            onExcluir = { excluir(it) },
+            onRegistrarExecucao = { abrirRegistroExecucao(it) }
         )
+
         binding.rvExercicios.layoutManager = LinearLayoutManager(this)
         binding.rvExercicios.adapter = adapter
 
@@ -73,4 +75,11 @@ class ListaExerciciosActivity : AppCompatActivity() {
         adapter.removerItem(exercicio) // Feedback visual imediato
         viewModel.deletarExercicio(exercicio) // Deleta do banco e remove a imagem local
     }
+
+    private fun abrirRegistroExecucao(exercicio: Exercicio) {
+        val intent = Intent(this, RegistrarExecucaoActivity::class.java)
+        intent.putExtra("EXERCICIO", exercicio)
+        startActivity(intent)
+    }
+
 }

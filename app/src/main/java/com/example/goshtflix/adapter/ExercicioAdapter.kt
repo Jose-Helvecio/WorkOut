@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load // Importe Coil
 import com.example.goshtflix.R
 import com.example.goshtflix.model.Exercicio
+import com.google.android.material.button.MaterialButton
 import java.io.File // Importe File
 
 class ExercicioAdapter(
     private var lista: MutableList<Exercicio>,
     val onEditar: (Exercicio) -> Unit,
-    val onExcluir: (Exercicio) -> Unit
+    val onExcluir: (Exercicio) -> Unit,
+    private val onRegistrarExecucao: (Exercicio) -> Unit
+
 ) : RecyclerView.Adapter<ExercicioAdapter.ExercicioViewHolder>() {
 
     fun atualizarLista(novaLista: List<Exercicio>) {
@@ -49,6 +52,8 @@ class ExercicioAdapter(
         private val ivImagem: ImageView = itemView.findViewById(R.id.ivImagem)
         private val btnEditar: ImageView = itemView.findViewById(R.id.btnEditar)
         private val btnExcluir: ImageView = itemView.findViewById(R.id.btnDeletar)
+        private val btnRegistrarExecucao: MaterialButton = itemView.findViewById(R.id.btnRegistrarExecucao)
+
 
         fun bind(exercicio: Exercicio) {
             tvNome.text = exercicio.nome
@@ -72,6 +77,8 @@ class ExercicioAdapter(
 
             btnEditar.setOnClickListener { onEditar(exercicio) }
             btnExcluir.setOnClickListener { onExcluir(exercicio) }
+            btnRegistrarExecucao.setOnClickListener { onRegistrarExecucao(exercicio) }
+
         }
     }
 }

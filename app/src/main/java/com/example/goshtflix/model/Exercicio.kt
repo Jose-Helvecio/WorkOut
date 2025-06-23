@@ -15,5 +15,9 @@ data class Exercicio(
     var treinoId: String = "",
     var nome: String = "",
     var imagemLocalUri: String = "",
-    var observacoes: String = ""
+    var observacoes: String = "",
+    val series: Int = 0,
+    val repeticoes: Int = 0,
+    val peso: Double = 0.0,
+    val dataRegistro: Long = System.currentTimeMillis()
 ) : Parcelable

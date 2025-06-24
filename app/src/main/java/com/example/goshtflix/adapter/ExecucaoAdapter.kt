@@ -20,8 +20,9 @@ class ExecucaoAdapter : RecyclerView.Adapter<ExecucaoAdapter.ViewHolder>() {
         fun bind(execucao: Execucao) {
             binding.tvSerie.text = "Série ${execucao.serie}"
             binding.tvInfo.text = "${execucao.repeticoes} reps • ${execucao.peso} kg"
-            binding.tvData.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                .format(Date(execucao.data))
+            binding.tvData.text = SimpleDateFormat("dd/MM/yyyy",
+                Locale.getDefault()).format(execucao.data)
+
         }
     }
 

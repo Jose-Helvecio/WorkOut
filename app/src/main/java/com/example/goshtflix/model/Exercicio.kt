@@ -19,5 +19,6 @@ data class Exercicio(
     val series: Int = 0,
     val repeticoes: Int = 0,
     val peso: Double = 0.0,
-    val dataRegistro: Long = System.currentTimeMillis()
+    val dataRegistro: Long = System.currentTimeMillis(),
+    val seriesCount: Int = 0
 ) : Parcelable

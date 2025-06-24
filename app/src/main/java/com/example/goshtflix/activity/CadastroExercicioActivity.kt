@@ -1,7 +1,5 @@
 package com.example.goshtflix.activity
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,19 +8,21 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import coil.load
+import coil.load // Certifique-se que você tem a dependência Coil para carregar imagens
+import com.example.goshtflix.R
 import com.example.goshtflix.databinding.ActivityCadastroExercicioBinding
 import com.example.goshtflix.model.Exercicio
-import com.example.goshtflix.viewModel.ExercicioViewModel
+import com.example.goshtflix.viewModel.ExercicioViewModel // Certifique-se que este é o seu ViewModel correto para Exercicios
 import java.io.File
 import java.util.UUID
 
 class CadastroExercicioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCadastroExercicioBinding
-    private val viewModel: ExercicioViewModel by viewModels()
+    private val viewModel: ExercicioViewModel by viewModels() // Use 'by viewModels()'
     private val REQUEST_IMAGE_PICK = 101
     private val REQUEST_IMAGE_CAPTURE = 102
     private val REQUEST_CAMERA_PERMISSION = 200
@@ -51,6 +51,8 @@ class CadastroExercicioActivity : AppCompatActivity() {
             if (it.imagemLocalUri.isNotEmpty()) {
                 binding.ivImagem.load(File(it.imagemLocalUri)) // Carrega a imagem a partir de um arquivo
             }
+            // Se estiver editando, pré-preencha o campo de contagem de séries se você tivesse um
+            // Caso contrário, a lógica de parsing abaixo será usada ao salvar
         }
 
         binding.ivImagem.setOnClickListener {
@@ -145,20 +147,22 @@ class CadastroExercicioActivity : AppCompatActivity() {
                 return
             }
 
-            // Se é um exercício existente, usa o ID e a URI da imagem atual
-            val id = exercicioAtual?.id ?: UUID.randomUUID().toString()
-            val imagemUriExistente = exercicioAtual?.imagemLocalUri ?: ""
+            // --- INÍCIO DA SOLUÇÃO: EXTRAIR seriesCount ---
+            val seriesCount = extractSeriesCountFromObservations(obs)
+            // --- FIM DA SOLUÇÃO ---
 
-            // Cria o objeto Exercicio com a possível nova imagem URI ou a existente
+            val id = exercicioAtual?.id ?: UUID.randomUUID().toString()
+            val imagemLocalUri = exercicioAtual?.imagemLocalUri ?: "" // Será atualizada no ViewModel se houver nova imagem
+
             val exercicioParaSalvar = Exercicio(
                 id = id,
                 nome = nome,
                 treinoId = treinoId,
-                imagemLocalUri = imagemUriExistente, // Será atualizada no ViewModel se houver nova imagem
-                observacoes = obs
+                imagemLocalUri = imagemLocalUri,
+                observacoes = obs,
+                seriesCount = seriesCount // <-- ATRIBUÍDO AQUI
             )
 
-            // Chama o ViewModel para salvar/atualizar, passando a URI da nova imagem (se houver)
             viewModel.salvarExercicio(exercicioParaSalvar, imagemNovaUri)
             Toast.makeText(this, "Salvando exercício...", Toast.LENGTH_SHORT).show()
             finish()
@@ -166,5 +170,17 @@ class CadastroExercicioActivity : AppCompatActivity() {
             e.printStackTrace()
             Toast.makeText(this, "Erro inesperado ao salvar: ${e.message}", Toast.LENGTH_LONG).show()
         }
+    }
+
+    // Função para extrair o número de séries da string de observações
+    private fun extractSeriesCountFromObservations(observations: String): Int {
+        // Esta regex busca por um número (um ou mais dígitos) seguido de 'x' ou 'X'.
+        // Ex: "4x10", "4 X 12", "3x8-10"
+        val regex = "(\\d+)\\s*[xX]".toRegex() // \\d+ (um ou mais dígitos), \\s* (zero ou mais espaços), [xX] (x ou X)
+
+        val matchResult = regex.find(observations)
+
+        // Pega o primeiro grupo de captura (o número antes do 'x')
+        return matchResult?.groups?.get(1)?.value?.toIntOrNull() ?: 0
     }
 }

@@ -18,7 +18,6 @@ class ExercicioViewModel(application: Application) : AndroidViewModel(applicatio
     private val exercicioDao = AppDatabase.getDatabase(application).exercicioDao()
     private val context = application.applicationContext
 
-    // Observa a lista de exercícios para um treino específico
     fun getExerciciosForTreino(treinoId: String): LiveData<List<Exercicio>> {
         return exercicioDao.getExerciciosByTreinoId(treinoId).asLiveData()
     }

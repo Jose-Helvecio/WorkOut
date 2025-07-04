@@ -3,6 +3,7 @@ package com.example.goshtflix.activity
 import ExecucaoAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -32,7 +33,8 @@ class RegistrarExecucaoActivity : AppCompatActivity() {
         val tvSerieNumber: TextView,
         val tvAnterior: TextView,
         val etPeso: TextInputEditText,
-        val etReps: TextInputEditText
+        val etReps: TextInputEditText,
+        val ivCheck: ImageView
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,20 +109,49 @@ class RegistrarExecucaoActivity : AppCompatActivity() {
         seriesBinding.tvSerieNumber.text = serieNumber.toString()
 
         val lastExec = lastExecutionsBySerie[serieNumber]
-        if (lastExec != null) {
-            seriesBinding.tvAnterior.text = "${lastExec.peso}kg x ${lastExec.repeticoes}"
-        } else {
-            seriesBinding.tvAnterior.text = "N/A"
+        seriesBinding.tvAnterior.text = lastExec?.let {
+            "${it.peso}kg x ${it.repeticoes}"
+        } ?: "N/A"
+
+        // Cria referência
+        val refs = SerieInputRefs(
+            tvSerieNumber = seriesBinding.tvSerieNumber,
+            tvAnterior = seriesBinding.tvAnterior,
+            etPeso = seriesBinding.etPeso,
+            etReps = seriesBinding.etReps,
+            ivCheck = seriesBinding.ivCheck // <-- Aqui
+        )
+
+        // Lógica de clique no botão de salvar individual
+        refs.ivCheck.setOnClickListener {
+            val peso = refs.etPeso.text?.toString()?.replace(",", ".")?.toDoubleOrNull()
+            val reps = refs.etReps.text?.toString()?.toIntOrNull()
+
+            if (peso == null || reps == null) {
+                Toast.makeText(this, "Preencha peso e repetições corretamente.", Toast.LENGTH_SHORT).show()
+                refs.etPeso.error = if (peso == null) "Obrigatório" else null
+                refs.etReps.error = if (reps == null) "Obrigatório" else null
+                return@setOnClickListener
+            }
+
+            val execucao = Execucao(
+                exercicioId = exercicio.id,
+                treinoId = exercicio.treinoId,
+                serie = serieNumber,
+                peso = peso,
+                repeticoes = reps
+            )
+
+            viewModel.salvarExecucao(exercicio, serieNumber, reps, peso)
+
+            Toast.makeText(this, "Série $serieNumber salva com sucesso!", Toast.LENGTH_SHORT).show()
+
+            // (Opcional) Mudar o ícone para "check verde"
+            refs.ivCheck.setImageResource(R.drawable.ic_favorito_seelcionado) // Ex: ✅
+            refs.ivCheck.setColorFilter(getColor(R.color.green))
         }
 
-        serieInputFields.add(
-            SerieInputRefs(
-                tvSerieNumber = seriesBinding.tvSerieNumber,
-                tvAnterior = seriesBinding.tvAnterior,
-                etPeso = seriesBinding.etPeso,
-                etReps = seriesBinding.etReps
-            )
-        )
+        serieInputFields.add(refs)
         binding.layoutSeriesInputContainer.addView(seriesBinding.root)
     }
 

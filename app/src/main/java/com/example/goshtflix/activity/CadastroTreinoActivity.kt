@@ -34,6 +34,9 @@ class CadastroTreinoActivity : AppCompatActivity() {
                 runOnUiThread {
                     if (sucesso) {
                         Toast.makeText(this, "Treino salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, ListaTreinosActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
                         finish() // Apenas fecha a tela e volta para a anterior
                     } else {
                         Toast.makeText(this, "Erro ao salvar treino.", Toast.LENGTH_SHORT).show()

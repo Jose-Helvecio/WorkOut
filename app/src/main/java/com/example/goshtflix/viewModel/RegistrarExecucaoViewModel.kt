@@ -19,23 +19,22 @@ class RegistrarExecucaoViewModel(application: Application) : AndroidViewModel(ap
     // Certifique-se que AppDatabase.getDatabase(application).execucaoDao() retorna o DAO correto
     private val execucaoDao = AppDatabase.getDatabase(application).execucaoDao()
 
-    // O método salvarExecucao individual não será mais usado diretamente pela UI neste cenário,
-    // mas pode ser mantido para outras finalidades ou testes.
     fun salvarExecucao(exercicio: Exercicio, serie: Int, reps: Int, peso: Double) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) { // Garante que a operação de DB seja em background
-                execucaoDao.inserir(
-                    Execucao(
-                        exercicioId = exercicio.id,
-                        treinoId = exercicio.treinoId,
-                        serie = serie,
-                        repeticoes = reps,
-                        peso = peso
-                    )
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val execucao = Execucao(
+                    exercicioId = exercicio.id,
+                    treinoId = exercicio.treinoId,
+                    serie = serie,
+                    repeticoes = reps,
+                    peso = peso
                 )
+                execucaoDao.inserir(execucao)
+            } catch (e: Exception) {
             }
         }
     }
+
 
     // Este método será o principal para salvar os dados das séries
     fun salvarVariasExecucoes(lista: List<Execucao>) {

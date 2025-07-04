@@ -50,13 +50,14 @@
 
     <TextView
         android:id="@+id/tv_convite"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:padding="6dp"
         android:layout_marginStart="32dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/aclonica"
-        android:text=" Venha desfrutar de uma experiencia jamais vista!"
+        android:text="Venha desfrutar de uma experiencia jamais vista!"
         android:textColor="@android:color/black"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/button_submit"

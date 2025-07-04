@@ -11,7 +11,7 @@
     <color name="black_transparent">#80FFFFFF</color>
 
     <!-- Versões para dark mode -->
-    <color name="background_light">#FFFFFF</color>
-    <color name="text_light">#FF000000</color>
-    <color name="input_background">#FFFFFF</color>
+    <color name="background_light">#121212</color>
+    <color name="text_light">#FFFFFF</color>
+    <color name="input_background">#1E1E1E</color>
 </resources>

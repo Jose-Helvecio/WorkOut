@@ -45,7 +45,8 @@ class ListaTreinosActivity : AppCompatActivity() {
         binding.recyclerViewTreinos.adapter = adapter
 
         // Aqui implementamos o swipe to delete
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        val itemTouchHelper = ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -61,10 +62,15 @@ class ListaTreinosActivity : AppCompatActivity() {
                 viewModel.deletarTreino(treinoParaDeletar.id) { sucesso ->
                     if (sucesso) {
                         // Atualiza a lista local removendo o item deletado
-                        val novaLista = adapter.getTreinos().filter { it.id != treinoParaDeletar.id }
+                        val novaLista =
+                            adapter.getTreinos().filter { it.id != treinoParaDeletar.id }
                         adapter.submitList(novaLista)
                     } else {
-                        Toast.makeText(this@ListaTreinosActivity, "Erro ao deletar treino", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@ListaTreinosActivity,
+                            "Erro ao deletar treino",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         adapter.notifyItemChanged(position) // Reverte o swipe visual
                     }
                 }
@@ -85,30 +91,41 @@ class ListaTreinosActivity : AppCompatActivity() {
     }
 
     private fun mostrarDialogAdicionarTreino() {
+        val view = layoutInflater.inflate(R.layout.dialog_add_treino, null)
         val bottomSheetDialog = BottomSheetDialog(this)
-        bottomSheetDialog.setContentView(R.layout.dialog_add_treino)
+        bottomSheetDialog.setContentView(view)
 
-        val nome = bottomSheetDialog.findViewById<android.widget.EditText>(R.id.edtNome)
-        val descricao = bottomSheetDialog.findViewById<android.widget.EditText>(R.id.edtDescricao)
-        val btnSalvar = bottomSheetDialog.findViewById<android.widget.Button>(R.id.btnSalvar)
+        bottomSheetDialog.setOnShowListener {
+            val nome = view.findViewById<android.widget.EditText>(R.id.edtNome)
+            val descricao = view.findViewById<android.widget.EditText>(R.id.edtDescricao)
+            val btnSalvar = view.findViewById<android.widget.Button>(R.id.btnSalvar)
 
-        btnSalvar?.setOnClickListener {
-            val nomeTreino = nome?.text.toString()
-            if (nomeTreino.isBlank()) {
-                Toast.makeText(this, "O nome do treino é obrigatório", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            btnSalvar?.setOnClickListener {
+                val nomeTreino = nome?.text?.toString()?.trim() ?: ""
+                val descricaoTreino = descricao?.text?.toString()?.trim() ?: ""
 
-            val treino = Treino(
-                nome = nomeTreino,
-                descricao = descricao?.text.toString(),
-                criadoEm = System.currentTimeMillis()
-            )
-            viewModel.adicionarTreino(treino) { ok ->
-                if (ok) bottomSheetDialog.dismiss()
+                if (nomeTreino.isBlank()) {
+                    Toast.makeText(this, "O nome do treino é obrigatório", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                val treino = Treino(
+                    nome = nomeTreino,
+                    descricao = descricaoTreino,
+                    criadoEm = System.currentTimeMillis()
+                )
+
+                viewModel.adicionarTreino(treino) {
+                    // Garante que será chamado no momento correto
+                    runOnUiThread {
+                        bottomSheetDialog.dismiss()
+                    }
+                }
+                bottomSheetDialog.dismiss()
             }
         }
 
         bottomSheetDialog.show()
     }
+
 }
